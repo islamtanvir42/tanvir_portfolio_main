@@ -1,0 +1,22 @@
+node_modules/
+.next/
+out/
+next-env.d.ts
+
+# never commit secrets
+.env
+.env.*
+!.env.example
+
+.DS_Store
+*.log
+
+# Internal client-strategy documents. These carry the CGPA figure, the UCBL
+# disclosure analysis and design-process notes — none of which should sit in a
+# repo that might ever be made public. Shared with the client as artifacts instead.
+docs/plan.html
+docs/hero-directions.html
+docs/redesign.html
+
+# TypeScript incremental build cache
+*.tsbuildinfo

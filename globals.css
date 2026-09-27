@@ -1,0 +1,127 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   "Ashfield" — the client's own palette: ash/black ground, lime green,
+   brown. Three rules keep it legible:
+
+     ash   is the world      — ground, surfaces, type
+     lime  is interaction    — anything you can touch, focus, or act on
+     brown is atmosphere     — light fields, callouts, meta, warmth
+
+   Nothing decorative is lime, and nothing you can click is brown.
+   Committed dark, single world — there is no light mode and none is wanted.
+   ------------------------------------------------------------------ */
+@theme {
+  /* ash */
+  --color-void: #0a0a0b;
+  --color-ash: #121214;
+  --color-ash-2: #1b1b1e;
+
+  --color-glass: rgba(255, 255, 255, 0.035);
+  --color-glass-line: rgba(233, 223, 207, 0.1);
+  --color-glass-line-hi: rgba(233, 223, 207, 0.22);
+
+  --color-bone: #ecece7;
+  --color-bone-2: #a5a49e;
+  --color-bone-3: #6c6b66;
+
+  /* lime — interaction only */
+  --color-lime: #bff23c;
+  --color-lime-hi: #d6ff63;
+
+  /* brown — atmosphere only */
+  --color-bark: #3a2416;
+  --color-clay: #8a5433;
+  --color-tan: #d2a273;
+
+  --font-display: var(--font-bricolage), "Helvetica Neue", sans-serif;
+  --font-signature: var(--font-signature-face), var(--font-bricolage), sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, Menlo, Consolas, monospace;
+}
+
+@layer base {
+  :root {
+    /* replaced at runtime by SiteNav with its measured height */
+    --nav-h: 76px;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--color-void);
+    color: var(--color-bone);
+    font-family: var(--font-display);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: var(--color-lime);
+    color: var(--color-void);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-lime);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* The custom cursor sets this on <html> once it is actually mounted, so the
+     native cursor is only ever hidden when there is something to replace it.
+     Anything with its own caret keeps the system cursor. */
+  html.cursor-custom,
+  html.cursor-custom * {
+    cursor: none;
+  }
+  a[href],
+  button,
+  [role="button"],
+  summary {
+    cursor: pointer;
+  }
+
+  html.cursor-custom input,
+  html.cursor-custom textarea,
+  html.cursor-custom [contenteditable="true"] {
+    cursor: text;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@utility glass {
+  background: var(--color-glass);
+  border: 1px solid var(--color-glass-line);
+  backdrop-filter: blur(14px);
+}
+
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-bone-3);
+}
+
+/* Film grain, tiled. Replaces the old ruled grid — texture rather than
+   geometry, so the ground reads as material instead of as a wireframe. */
+@utility grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+}
+

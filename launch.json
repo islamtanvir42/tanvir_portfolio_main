@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "tanvir-dev",
+      "runtimeExecutable": "cmd.exe",
+      "runtimeArgs": ["/c", "E:\\Tanvir Islam Website\\.claude\\dev.cmd"],
+      "port": 3002
+    }
+  ]
+}
